@@ -1,7 +1,7 @@
 version: 2.1
 
 jobs:
-  build:
+  test:
     docker:
       - image: rust:latest
     steps:
@@ -9,4 +9,4 @@ jobs:
       - run: cargo --version
       - run:
           name: Run Tests
-          command: "cargo test"
+          command: "cargo test --verbose"
