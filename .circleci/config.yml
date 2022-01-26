@@ -2,17 +2,12 @@ version: 2.1
 
 jobs:
   test:
-    docker:
-      - image: rust:latest
+    machine: true
     steps:
       - checkout
-      - run: cargo --version
-      - run:
-          name: Install cargo-tarpaulin
-          command: "cargo install cargo-tarpaulin"
       - run:
           name: Run Tests
-          command: "cargo tarpaulin -v"
+          command: docker run --security-opt seccomp=unconfined -v "${PWD}:/volume" xd009642/tarpaulin
 
 workflows:
   test-only:
