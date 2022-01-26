@@ -21,7 +21,7 @@ pub mod templates;
 pub mod utils;
 
 #[cfg(test)]
-mod test {
+mod test_utils {
     use std::{env::temp_dir, fs, path::PathBuf};
 
     use crate::utils;
@@ -83,5 +83,28 @@ mod test {
 
         assert_eq!(abs.is_absolute(), true);
         assert_ne!(abs.is_relative(), true);
+    }
+}
+
+#[cfg(test)]
+mod test_templates {
+    use crate::templates;
+    #[test]
+    fn test_config_new_and_config_decode() {
+        let config_string = templates::config_new("test-name", "test");
+
+        assert_eq!(config_string.contains("test-name"), true);
+
+        let config: templates::Config = templates::config_decode(&config_string);
+
+        assert_eq!(config.info.name, "test-name");
+    }
+
+    #[test]
+    fn test_solidity_new() {
+        let sol = templates::solidity_new("TestContract", "GPL-3.0");
+
+        assert_eq!(sol.contains("TestContract"), true);
+        assert_eq!(sol.contains("GPL-3.0"), true);
     }
 }
