@@ -8,8 +8,11 @@ jobs:
       - checkout
       - run: cargo --version
       - run:
+          name: Install cargo-tarpaulin
+          command: "cargo install cargo-tarpaulin"
+      - run:
           name: Run Tests
-          command: "cargo test --verbose"
+          command: "cargo tarpaulin -v"
 
 workflows:
   test-only:
