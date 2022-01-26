@@ -1,4 +1,6 @@
 version: 2.1
+orbs:
+  codecov: codecov/codecov@1.0.2
 
 jobs:
   test:
@@ -7,7 +9,9 @@ jobs:
       - checkout
       - run:
           name: Run Tests
-          command: docker run --security-opt seccomp=unconfined -v "${PWD}:/volume" xd009642/tarpaulin
+          command: docker run --security-opt seccomp=unconfined -v "${PWD}:/volume" xd009642/tarpaulin cargo tarpaulin -v --ciserver circle-ci --out Xml --all-features
+      - codecov/upload:
+          file: {{cobertura.xml}}
 
 workflows:
   test-only:
