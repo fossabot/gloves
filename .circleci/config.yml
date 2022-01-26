@@ -10,3 +10,8 @@ jobs:
       - run:
           name: Run Tests
           command: "cargo test --verbose"
+
+workflows:
+  test-only:
+    jobs:
+      - test
