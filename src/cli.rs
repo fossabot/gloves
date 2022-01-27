@@ -45,9 +45,14 @@ enum CliCommand {
     Init {
         /// path to current dir e.g `.` or to other dir e.g `./mytoken` or `mytoken`.
         path: String,
+
         #[clap(long = "compiler", default_value = "solc")]
         /// set the default solidity compiler binary e.g `solc`.
         compiler: String,
+
+        #[clap(long = "license", default_value = "MIT")]
+        /// set the license of the project e.g `MIT`,
+        license: String,
     },
 
     // command for creating new contract inside `contracts` dir.
@@ -76,8 +81,12 @@ pub fn run() {
     let app = Cli::parse();
 
     match &app.command {
-        CliCommand::Init { path, compiler } => {
-            cliactions::init(path, compiler);
+        CliCommand::Init {
+            path,
+            compiler,
+            license,
+        } => {
+            cliactions::init(path, compiler, license);
         }
 
         CliCommand::New { contract } => {

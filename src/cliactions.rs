@@ -23,7 +23,7 @@ use std::{
 use crate::{solc, templates, utils};
 
 // init action for initiating gloves project.
-pub fn init(path: &String, compiler: &String) {
+pub fn init(path: &String, compiler: &String, license: &String) {
     // path variable
     let dir = PathBuf::from(path);
     let abs_dir = utils::path_absolute(&dir);
@@ -61,7 +61,11 @@ pub fn init(path: &String, compiler: &String) {
         utils::errlog("Failed initiating project", &err_initiated);
     }
 
-    let config = templates::config_new("test", compiler);
+    let config = templates::config_new(
+        abs_dir.file_name().unwrap().to_str().unwrap(),
+        compiler,
+        license,
+    );
     utils::file_new(&cfg_file_path, config);
 
     // finish

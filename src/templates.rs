@@ -40,11 +40,11 @@ pub struct ConfigCompiler {
 }
 
 // generate new Config.
-pub fn config_new(name: &str, compiler: &str) -> String {
+pub fn config_new(name: &str, compiler: &str, license: &str) -> String {
     let config = Config {
         info: ConfigInfo {
             name: name.to_string(),
-            license: "MIT".to_string(),
+            license: license.to_uppercase().to_string(),
         },
         compiler: ConfigCompiler {
             solc: compiler.to_string(),
